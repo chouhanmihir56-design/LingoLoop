@@ -1,0 +1,6 @@
+{
+  "name": "LingoLoop - Modern Language Learning",
+  "description": "Learn Spanish, French, German, Japanese, Korean, and Italian through bite-sized interactive lessons, daily streaks, and gamified challenges.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

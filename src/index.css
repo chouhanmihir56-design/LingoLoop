@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* 3D button press style like modern game UIs */
+.btn-3d-primary {
+  box-shadow: 0 4px 0 #4f46e5;
+  transition: all 0.1s ease;
+}
+.btn-3d-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #4f46e5;
+}
+.btn-3d-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #4f46e5;
+}
+
+.btn-3d-success {
+  box-shadow: 0 4px 0 #15803d;
+  transition: all 0.1s ease;
+}
+.btn-3d-success:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #15803d;
+}
+.btn-3d-success:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #15803d;
+}
+
+.btn-3d-outline {
+  box-shadow: 0 3px 0 #cbd5e1;
+  transition: all 0.1s ease;
+}
+.btn-3d-outline:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #cbd5e1;
+}
+
+/* Smooth custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(99, 102, 241, 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes floatMascot {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: floatMascot 3.5s ease-in-out infinite;
+}
