@@ -176,3 +176,84 @@ export interface VocabCard {
   partOfSpeech: string;
   difficulty: 'easy' | 'medium' | 'hard';
 }
+
+export interface TableOfContentsItem {
+  id: string;
+  title: string;
+  level: number;
+}
+
+export interface ArticleSection {
+  id: string;
+  heading: string;
+  content: string[];
+  callout?: {
+    type: 'tip' | 'warning' | 'vocab' | 'quote';
+    title: string;
+    text: string;
+  };
+  table?: {
+    headers: string[];
+    rows: string[][];
+  };
+  bulletPoints?: string[];
+}
+
+export interface RecommendedProduct {
+  name: string;
+  category: string;
+  price: string;
+  rating: number;
+  bestFor: string;
+  description: string;
+  badge?: string;
+  highlights?: string[];
+}
+
+export interface ProsAndConsData {
+  title: string;
+  pros: string[];
+  cons: string[];
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  primaryKeyword: string;
+  secondaryKeywords: string[];
+  metaTitle: string;
+  metaDescription: string;
+  summary: string;
+  category: 'Beginner Guides' | 'App Reviews' | 'Grammar & Syntax' | 'Study Habits' | 'Comparisons & Culture' | 'Pronunciation';
+  targetLanguage?: LanguageCode | 'All';
+  coverImage: string;
+  imageAlt: string;
+  author: {
+    name: string;
+    role: string;
+    avatar: string;
+  };
+  publishedDate: string;
+  readTimeMinutes: number;
+  featured?: boolean;
+  tags: string[];
+  introduction: string[];
+  tableOfContents: TableOfContentsItem[];
+  sections: ArticleSection[];
+  recommendedProducts: RecommendedProduct[];
+  prosAndCons: ProsAndConsData;
+  faqs: FAQItem[];
+  conclusion: {
+    text: string[];
+    ctaHeadline: string;
+    ctaPrompt: string;
+  };
+  relatedArticleSlugs: string[];
+}
+

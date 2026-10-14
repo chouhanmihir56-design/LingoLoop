@@ -11,7 +11,7 @@ import { LANGUAGES, LANGUAGE_CURRICULA } from '../data/languages';
 import { INITIAL_ACHIEVEMENTS, INITIAL_LEADERBOARD_USERS } from '../data/achievements';
 import { playSound } from '../utils/audio';
 
-type ViewMode = 'home' | 'learn' | 'practice' | 'leaderboard' | 'profile' | 'languages';
+type ViewMode = 'home' | 'learn' | 'practice' | 'leaderboard' | 'profile' | 'languages' | 'blog' | 'article';
 
 interface ToastInfo {
   id: string;
@@ -24,11 +24,13 @@ interface AppContextType {
   user: UserProfile;
   currentView: ViewMode;
   setCurrentView: (view: ViewMode) => void;
+  currentArticleSlug: string | null;
+  openArticle: (slug: string) => void;
   activeLesson: LessonNode | null;
   startLesson: (lesson: LessonNode) => void;
   exitLesson: () => void;
   finishLesson: (lessonId: string, earnedXp: number, isPerfect: boolean) => void;
-  loseHeart: () => boolean; // returns true if user still has hearts
+  loseHeart: () => boolean;
   refillHearts: () => void;
   addXp: (amount: number, reason?: string) => void;
   selectLanguage: (lang: LanguageCode) => void;
@@ -104,9 +106,95 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return INITIAL_ACHIEVEMENTS;
   });
 
-  const [currentView, setCurrentView] = useState<ViewMode>('learn');
+  // Parse initial route from URL
+  const getInitialRoute = (): { view: ViewMode; slug: string | null } => {
+    if (typeof window === 'undefined') return { view: 'learn', slug: null };
+    const path = window.location.pathname;
+    if (path.startsWith('/blog/')) {
+      const slug = path.replace('/blog/', '').split('/')[0];
+      return { view: 'article', slug: slug || null };
+    }
+    if (path === '/blog') {
+      return { view: 'blog', slug: null };
+    }
+    if (path === '/practice') return { view: 'practice', slug: null };
+    if (path === '/leaderboard') return { view: 'leaderboard', slug: null };
+    if (path === '/profile') return { view: 'profile', slug: null };
+    if (path === '/languages') return { view: 'languages', slug: null };
+    if (path === '/' || path === '/home') return { view: 'home', slug: null };
+    return { view: 'learn', slug: null };
+  };
+
+  const initialRoute = getInitialRoute();
+  const [currentView, setCurrentViewInternal] = useState<ViewMode>(initialRoute.view);
+  const [currentArticleSlug, setCurrentArticleSlug] = useState<string | null>(initialRoute.slug);
   const [activeLesson, setActiveLesson] = useState<LessonNode | null>(null);
   const [toasts, setToasts] = useState<ToastInfo[]>([]);
+
+  // Navigate with clean URL pushState
+  const setCurrentView = (view: ViewMode) => {
+    setCurrentViewInternal(view);
+    if (view !== 'article') {
+      setCurrentArticleSlug(null);
+    }
+    try {
+      const pathMap: Record<ViewMode, string> = {
+        home: '/',
+        learn: '/learn',
+        practice: '/practice',
+        leaderboard: '/leaderboard',
+        profile: '/profile',
+        languages: '/languages',
+        blog: '/blog',
+        article: currentArticleSlug ? `/blog/${currentArticleSlug}` : '/blog',
+      };
+      const newPath = pathMap[view] || '/';
+      if (window.location.pathname !== newPath) {
+        window.history.pushState({ view, slug: currentArticleSlug }, '', newPath);
+      }
+    } catch {
+      // History API fallback
+    }
+  };
+
+  const openArticle = (slug: string) => {
+    setCurrentArticleSlug(slug);
+    setCurrentViewInternal('article');
+    try {
+      window.history.pushState({ view: 'article', slug }, '', `/blog/${slug}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch {}
+  };
+
+  // Listen to browser Back/Forward navigation
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      const path = window.location.pathname;
+      if (path.startsWith('/blog/')) {
+        const slug = path.replace('/blog/', '').split('/')[0];
+        setCurrentArticleSlug(slug);
+        setCurrentViewInternal('article');
+      } else if (path === '/blog') {
+        setCurrentArticleSlug(null);
+        setCurrentViewInternal('blog');
+      } else if (path === '/practice') {
+        setCurrentViewInternal('practice');
+      } else if (path === '/leaderboard') {
+        setCurrentViewInternal('leaderboard');
+      } else if (path === '/profile') {
+        setCurrentViewInternal('profile');
+      } else if (path === '/languages') {
+        setCurrentViewInternal('languages');
+      } else if (path === '/' || path === '/home') {
+        setCurrentViewInternal('home');
+      } else {
+        setCurrentViewInternal('learn');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Sync to local storage
   useEffect(() => {
@@ -315,6 +403,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         user,
         currentView,
         setCurrentView,
+        currentArticleSlug,
+        openArticle,
         activeLesson,
         startLesson,
         exitLesson,

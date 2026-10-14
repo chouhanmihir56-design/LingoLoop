@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Home, BookOpen, Dumbbell, Trophy, User } from 'lucide-react';
+import { Home, BookOpen, Dumbbell, Trophy, FileText, User } from 'lucide-react';
 import { playSound } from '../utils/audio';
 
 export const MobileNav: React.FC = () => {
@@ -14,6 +14,7 @@ export const MobileNav: React.FC = () => {
     { id: 'learn', label: 'Learn', icon: BookOpen },
     { id: 'practice', label: 'Practice', icon: Dumbbell },
     { id: 'leaderboard', label: 'Ranks', icon: Trophy },
+    { id: 'blog', label: 'Blog', icon: FileText },
     { id: 'profile', label: 'Profile', icon: User },
   ] as const;
 

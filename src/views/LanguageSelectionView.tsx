@@ -3,7 +3,17 @@ import { useApp } from '../context/AppContext';
 import { LANGUAGES } from '../data/languages';
 import { LanguageCode } from '../types';
 import { Check, ArrowRight, Star, Users, Globe2, Sparkles } from 'lucide-react';
+import { LandmarkIllustration } from '../components/IllustrationAssets';
 import { playSound } from '../utils/audio';
+
+const LANG_LANDMARKS: Record<LanguageCode, 'spain' | 'france' | 'germany' | 'japan' | 'korea' | 'italy'> = {
+  es: 'spain',
+  fr: 'france',
+  de: 'germany',
+  ja: 'japan',
+  ko: 'korea',
+  it: 'italy',
+};
 
 export const LanguageSelectionView: React.FC = () => {
   const { user, selectLanguage, setCurrentView } = useApp();
@@ -43,12 +53,13 @@ export const LanguageSelectionView: React.FC = () => {
           {LANGUAGES.map((lang) => {
             const isSelected = selectedId === lang.id;
             const isCurrent = user.currentLanguage === lang.id;
+            const landmarkType = LANG_LANDMARKS[lang.id] || 'spain';
 
             return (
               <div
                 key={lang.id}
                 onClick={() => handleCardClick(lang.id)}
-                className={`cursor-pointer rounded-3xl p-6 border-2 transition-all relative flex flex-col justify-between ${
+                className={`cursor-pointer rounded-3xl p-6 border-2 transition-all relative flex flex-col justify-between overflow-hidden group ${
                   isSelected
                     ? 'border-indigo-600 bg-white shadow-xl shadow-indigo-100 scale-[1.02] ring-4 ring-indigo-500/10'
                     : 'border-slate-200 bg-white hover:border-indigo-300 hover:shadow-md'
@@ -56,20 +67,25 @@ export const LanguageSelectionView: React.FC = () => {
               >
                 {/* Active check / Selected badge */}
                 {isSelected && (
-                  <div className="absolute top-4 right-4 w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-300">
+                  <div className="absolute top-4 right-4 w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-300 z-10">
                     <Check className="w-4 h-4 stroke-[3]" />
                   </div>
                 )}
 
                 {isCurrent && !isSelected && (
-                  <span className="absolute top-4 right-4 text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                  <span className="absolute top-4 right-4 text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full z-10">
                     Active
                   </span>
                 )}
 
                 <div>
-                  <div className="text-5xl mb-4 transform hover:scale-110 transition-transform inline-block">
-                    {lang.flag}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-5xl transform group-hover:scale-110 transition-transform inline-block">
+                      {lang.flag}
+                    </div>
+                    <div className="w-16 h-16 opacity-90 group-hover:scale-105 transition-transform">
+                      <LandmarkIllustration type={landmarkType} className="w-16 h-16" />
+                    </div>
                   </div>
 
                   <div className="flex items-baseline justify-between mb-1">

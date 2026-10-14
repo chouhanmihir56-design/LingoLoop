@@ -15,6 +15,8 @@ import { LeaderboardView } from './views/LeaderboardView';
 import { ProfileView } from './views/ProfileView';
 import { LanguageSelectionView } from './views/LanguageSelectionView';
 import { LessonEngine } from './views/LessonEngine';
+import { BlogHubView } from './views/BlogHubView';
+import { ArticleDetailView } from './views/ArticleDetailView';
 
 const MainContent: React.FC = () => {
   const { currentView, activeLesson } = useApp();
@@ -35,6 +37,8 @@ const MainContent: React.FC = () => {
         {currentView === 'leaderboard' && <LeaderboardView />}
         {currentView === 'profile' && <ProfileView />}
         {currentView === 'languages' && <LanguageSelectionView />}
+        {currentView === 'blog' && <BlogHubView />}
+        {currentView === 'article' && <ArticleDetailView />}
       </main>
 
       <MobileNav />

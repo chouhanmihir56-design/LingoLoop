@@ -15,6 +15,7 @@ import {
   User,
   Home,
   PlusCircle,
+  FileText,
 } from 'lucide-react';
 import { playSound } from '../utils/audio';
 
@@ -34,7 +35,7 @@ export const Navbar: React.FC = () => {
 
   const currentLangInfo = LANGUAGES.find((l) => l.id === user.currentLanguage) || LANGUAGES[0];
 
-  const handleNavClick = (view: 'home' | 'learn' | 'practice' | 'leaderboard' | 'profile') => {
+  const handleNavClick = (view: 'home' | 'learn' | 'practice' | 'leaderboard' | 'profile' | 'blog') => {
     if (user.soundEnabled) playSound.tap();
     setCurrentView(view);
   };
@@ -126,6 +127,18 @@ export const Navbar: React.FC = () => {
           >
             <Trophy className="w-4 h-4" />
             <span>Leaderboard</span>
+          </button>
+
+          <button
+            onClick={() => handleNavClick('blog')}
+            className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
+              currentView === 'blog' || currentView === 'article'
+                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+            }`}
+          >
+            <FileText className="w-4 h-4" />
+            <span>Blog</span>
           </button>
 
           <button
