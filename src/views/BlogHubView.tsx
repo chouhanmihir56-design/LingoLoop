@@ -244,6 +244,64 @@ export const BlogHubView: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Keyword Research Table */}
+        <div className="pt-6">
+          <div className="mb-6">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Keyword Research Table
+            </h2>
+          </div>
+
+          <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-200 text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <th scope="col" className="py-4 px-6 whitespace-nowrap">Page</th>
+                  <th scope="col" className="py-4 px-6 whitespace-nowrap">Main keyword</th>
+                  <th scope="col" className="py-4 px-6 whitespace-nowrap">2 related keywords</th>
+                  <th scope="col" className="py-4 px-6 whitespace-nowrap">Intent</th>
+                  <th scope="col" className="py-4 px-6 whitespace-nowrap">Volume</th>
+                  <th scope="col" className="py-4 px-6 whitespace-nowrap">Question it answers</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 text-sm text-slate-800">
+                <tr className="hover:bg-slate-50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Home</td>
+                  <td className="py-4 px-6 font-medium whitespace-nowrap">language learning</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">learn a new language; language learning website</td>
+                  <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                  <td className="py-4 px-6 text-slate-700">How can I learn a new language?</td>
+                </tr>
+                <tr className="hover:bg-slate-50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 1</td>
+                  <td className="py-4 px-6 font-medium whitespace-nowrap">benefits of learning a new language</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">advantages of learning languages; benefits of bilingualism</td>
+                  <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                  <td className="py-4 px-6 text-slate-700">What are the benefits of learning a new language?</td>
+                </tr>
+                <tr className="hover:bg-slate-50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 2</td>
+                  <td className="py-4 px-6 font-semibold whitespace-nowrap">how to learn a language faster</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">effective language learning techniques; language learning tips</td>
+                  <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                  <td className="py-4 px-6 text-slate-700">How can I learn a language faster?</td>
+                </tr>
+                <tr className="hover:bg-slate-50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 3</td>
+                  <td className="py-4 px-6 font-medium whitespace-nowrap">improve language skills</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">improve speaking skills; language practice exercises</td>
+                  <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                  <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                  <td className="py-4 px-6 text-slate-700">How can I improve my language skills?</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -52,11 +52,22 @@ export const ArticleDetailView: React.FC = () => {
       metaDesc.setAttribute('content', article.metaDescription);
     }
 
+    // Canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', `https://lingoloop.app/blog/${article.slug}`);
+
     // OpenGraph tags
     let ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', article.metaTitle);
     let ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc) ogDesc.setAttribute('content', article.metaDescription);
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', `https://lingoloop.app/blog/${article.slug}`);
 
     // Schema.org Article & FAQPage Structured Data (JSON-LD)
     const jsonLdScriptId = 'article-structured-data';
@@ -114,7 +125,18 @@ export const ArticleDetailView: React.FC = () => {
     scriptTag.textContent = JSON.stringify(structuredData);
 
     return () => {
-      document.title = 'LingoLoop - Modern Language Learning';
+      document.title = 'LingoLoop – Learn a Language Online with Free Courses';
+      let canLink = document.querySelector('link[rel="canonical"]');
+      if (canLink) {
+        canLink.setAttribute('href', 'https://lingoloop.app/');
+      }
+      let metaD = document.querySelector('meta[name="description"]');
+      if (metaD) {
+        metaD.setAttribute(
+          'content',
+          'Learn a language online with LingoLoop. Access free language courses and interactive language practice to build daily speaking fluency in foreign languages.'
+        );
+      }
     };
   }, [article]);
 

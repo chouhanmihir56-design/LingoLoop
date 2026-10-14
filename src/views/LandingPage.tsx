@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { LANGUAGES } from '../data/languages';
 import { Mascot } from '../components/Mascot';
@@ -18,20 +18,27 @@ import {
   Zap,
   BookOpen,
   Clock,
+  HelpCircle,
+  ChevronDown,
 } from 'lucide-react';
 import { playSound } from '../utils/audio';
 
 export const LandingPage: React.FC = () => {
   const { setCurrentView, selectLanguage, openArticle, user } = useApp();
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
-    document.title = 'LingoLoop – Learn a Language Online with Free Language Courses';
+    document.title = 'LingoLoop – Learn a Language Online with Free Courses';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        'Learn a language online with LingoLoop. Access free language courses and interactive language practice across Spanish, French, German, Japanese, Korean, and Italian.'
+        'Learn a language online with LingoLoop. Access free language courses and interactive language practice to build daily speaking fluency in foreign languages.'
       );
+    }
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://lingoloop.app/');
     }
   }, []);
 
@@ -167,7 +174,7 @@ export const LandingPage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="text-center max-w-xl mx-auto mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-            Pick Your Next Language
+            How Can You Learn a Language Online Effectively with LingoLoop?
           </h2>
           <p className="text-sm text-slate-500 mt-1.5">
             Switch anytime. Your progress in each language is automatically tracked.
@@ -215,10 +222,10 @@ export const LandingPage: React.FC = () => {
             Built for Real Engagement
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-            Why Learners Love LingoLoop
+            Why Choose Free Language Courses and Interactive Language Practice?
           </h2>
           <p className="text-base text-slate-600 mt-2">
-            Engineered with science-backed micro-learning techniques to make language retention natural and addictive.
+            Engineered with science-backed micro-learning techniques to make language retention natural, playful, and addictive.
           </p>
         </div>
 
@@ -306,7 +313,7 @@ export const LandingPage: React.FC = () => {
             <span className="text-indigo-400 font-extrabold uppercase text-xs tracking-widest bg-indigo-900/60 px-3.5 py-1.5 rounded-full border border-indigo-700/50">
               Simple, Proven Workflow
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-3">How It Works</h2>
+            <h2 className="text-3xl sm:text-4xl font-black mt-3">How Does LingoLoop Make Language Learning Simple?</h2>
             <p className="text-indigo-200 text-sm sm:text-base mt-2">
               Start in seconds. No complicated textbooks or dry grammar drills required.
             </p>
@@ -378,8 +385,9 @@ export const LandingPage: React.FC = () => {
           <button
             onClick={() => setCurrentView('blog')}
             className="px-5 py-2.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-indigo-300 font-bold text-xs text-slate-800 hover:text-indigo-600 transition-all flex items-center gap-2 shadow-2xs group"
+            aria-label="Explore All 10 Free Language Learning Guides"
           >
-            <span>Explore All 10 Articles</span>
+            <span>Explore All 10 Free Language Learning Guides</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
@@ -426,12 +434,126 @@ export const LandingPage: React.FC = () => {
                   <span className="font-mono text-[10px] text-slate-400 truncate max-w-[150px]">
                     /blog/{article.slug.slice(0, 18)}...
                   </span>
-                  <span className="group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                    Read Guide
+                  <span className="group-hover:translate-x-1 transition-transform flex items-center gap-1 font-bold">
+                    Read Full {article.targetLanguage === 'es' ? 'Spanish Guide' : article.category === 'App Reviews' ? 'App Review' : 'Tips Guide'}
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Keyword Research Table */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-6">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Keyword Research Table
+          </h2>
+        </div>
+
+        <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-100 border-b border-slate-200 text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <th scope="col" className="py-4 px-6 whitespace-nowrap">Page</th>
+                <th scope="col" className="py-4 px-6 whitespace-nowrap">Main keyword</th>
+                <th scope="col" className="py-4 px-6 whitespace-nowrap">2 related keywords</th>
+                <th scope="col" className="py-4 px-6 whitespace-nowrap">Intent</th>
+                <th scope="col" className="py-4 px-6 whitespace-nowrap">Volume</th>
+                <th scope="col" className="py-4 px-6 whitespace-nowrap">Question it answers</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 text-sm text-slate-800">
+              <tr className="hover:bg-slate-50 transition-colors">
+                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Home</td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap">language learning</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">learn a new language; language learning website</td>
+                <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                <td className="py-4 px-6 text-slate-700">How can I learn a new language?</td>
+              </tr>
+              <tr className="hover:bg-slate-50 transition-colors">
+                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 1</td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap">benefits of learning a new language</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">advantages of learning languages; benefits of bilingualism</td>
+                <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                <td className="py-4 px-6 text-slate-700">What are the benefits of learning a new language?</td>
+              </tr>
+              <tr className="hover:bg-slate-50 transition-colors">
+                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 2</td>
+                <td className="py-4 px-6 font-semibold whitespace-nowrap">how to learn a language faster</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">effective language learning techniques; language learning tips</td>
+                <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                <td className="py-4 px-6 text-slate-700">How can I learn a language faster?</td>
+              </tr>
+              <tr className="hover:bg-slate-50 transition-colors">
+                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 3</td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap">improve language skills</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">improve speaking skills; language practice exercises</td>
+                <td className="py-4 px-6 whitespace-nowrap">Know</td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
+                <td className="py-4 px-6 text-slate-700">How can I improve my language skills?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Homepage Question-and-Answer FAQ Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2 bg-indigo-50 px-3 py-1 rounded-full">
+            <HelpCircle className="w-3.5 h-3.5" />
+            Frequently Asked Questions
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            How Can You Learn a Language Online with LingoLoop?
+          </h2>
+          <p className="text-sm text-slate-500 font-medium mt-2">
+            Answers to common questions about free language courses, daily practice, and reaching conversational fluency.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {[
+            {
+              q: 'How can I start learning a foreign language online through free, interactive daily practice?',
+              a: 'You can begin learning immediately on LingoLoop without credit cards or complex sign-ups. Choose from Spanish, French, German, Japanese, Korean, or Italian, and complete bite-sized 3-minute lessons combining interactive speech pronunciation, translation builders, and spaced repetition.',
+            },
+            {
+              q: 'Are free language courses sufficient to achieve conversational fluency?',
+              a: 'Yes, when free language courses emphasize active recall and consistent interactive language practice. LingoLoop focuses on the top high-frequency words, ear-training drills, and daily streaks so beginners build real-world speaking confidence faster.',
+            },
+            {
+              q: 'How does LingoLoop help learners stay consistent every day?',
+              a: 'LingoLoop combines habit stacking with daily streak counters, celebratory milestone chests, voice pronunciation feedback, and Diamond League challenges to transform study sessions into an enjoyable daily routine.',
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl border-2 border-slate-200/80 shadow-xs overflow-hidden transition-all"
+            >
+              <button
+                onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 hover:text-indigo-600 transition-colors"
+                aria-expanded={openFaqIndex === index}
+              >
+                <span className="text-base sm:text-lg">{item.q}</span>
+                <ChevronDown
+                  className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300 ${
+                    openFaqIndex === index ? 'rotate-180 text-indigo-600' : ''
+                  }`}
+                />
+              </button>
+              {openFaqIndex === index && (
+                <div className="px-5 pb-5 pt-1 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
+                  {item.a}
+                </div>
+              )}
             </div>
           ))}
         </div>
