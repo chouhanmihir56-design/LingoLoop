@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { LANGUAGES } from '../data/languages';
 import { Mascot } from '../components/Mascot';
@@ -24,6 +24,17 @@ import { playSound } from '../utils/audio';
 export const LandingPage: React.FC = () => {
   const { setCurrentView, selectLanguage, openArticle, user } = useApp();
 
+  useEffect(() => {
+    document.title = 'LingoLoop – Learn a Language Online with Free Language Courses';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        'Learn a language online with LingoLoop. Access free language courses and interactive language practice across Spanish, French, German, Japanese, Korean, and Italian.'
+      );
+    }
+  }, []);
+
   const handleStartLearning = () => {
     if (user.soundEnabled) playSound.tap();
     setCurrentView('learn');
@@ -45,12 +56,12 @@ export const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 text-center lg:text-left space-y-6">
-              {/* Pill badge */}
+              {/* Pill badge with Main Keyword and Related Keyword */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-indigo-100 shadow-sm text-xs font-bold text-indigo-700">
                 <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-ping" />
-                <span>The playful way to fluency</span>
+                <span>Learn a Language Online</span>
                 <span className="text-slate-300">•</span>
-                <span className="text-indigo-600/80">100% Free & Interactive</span>
+                <span className="text-indigo-600/90">Free Language Courses</span>
               </div>
 
               {/* Main Heading */}
@@ -61,9 +72,9 @@ export const LandingPage: React.FC = () => {
                 </span>
               </h1>
 
-              {/* Subheading */}
+              {/* Subheading with Interactive Language Practice */}
               <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
-                Build real-world language skills through short lessons, interactive challenges, and daily practice.
+                Build real-world fluency through free language courses and daily interactive language practice across Spanish, French, German, Japanese, Korean, and Italian.
               </p>
 
               {/* Action Buttons */}
