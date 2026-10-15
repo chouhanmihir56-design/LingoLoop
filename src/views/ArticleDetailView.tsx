@@ -39,6 +39,53 @@ export const ArticleDetailView: React.FC = () => {
   const article: Article =
     BLOG_ARTICLES.find((a) => a.slug === currentArticleSlug) || BLOG_ARTICLES[0];
 
+  // Helper to render markdown-style [Anchor Text](url) as interactive anchor tags
+  const renderContentWithAnchorLinks = (text: string) => {
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      const anchorText = match[1];
+      const url = match[2];
+      parts.push(
+        <a
+          key={match.index}
+          href={url}
+          onClick={(e) => {
+            e.preventDefault();
+            if (url === '/' || url === '#home' || url === '#top') {
+              setCurrentView('home');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (url.startsWith('/blog/')) {
+              const targetSlug = url.replace('/blog/', '');
+              openArticle(targetSlug);
+            } else if (url === '/learn') {
+              setCurrentView('learn');
+            } else if (url === '/languages') {
+              setCurrentView('languages');
+            }
+          }}
+          className="text-indigo-600 hover:text-indigo-800 font-semibold underline underline-offset-2 decoration-indigo-300 hover:decoration-indigo-600 transition-colors"
+          title={`Anchor text navigation: ${anchorText}`}
+        >
+          {anchorText}
+        </a>
+      );
+      lastIndex = regex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : text;
+  };
+
   // Update dynamic document title, meta description, and Schema.org JSON-LD
   useEffect(() => {
     if (!article) return;
@@ -385,7 +432,7 @@ export const ArticleDetailView: React.FC = () => {
                 Introduction
               </span>
               {article.introduction.map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i}>{renderContentWithAnchorLinks(para)}</p>
               ))}
             </div>
 
@@ -398,7 +445,7 @@ export const ArticleDetailView: React.FC = () => {
 
                 <div className="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
                   {section.content.map((paragraph, pIdx) => (
-                    <p key={pIdx}>{paragraph}</p>
+                    <p key={pIdx}>{renderContentWithAnchorLinks(paragraph)}</p>
                   ))}
                 </div>
 
@@ -417,7 +464,7 @@ export const ArticleDetailView: React.FC = () => {
                       {section.callout.title}
                     </div>
                     <div className="text-xs sm:text-sm font-medium leading-relaxed">
-                      {section.callout.text}
+                      {renderContentWithAnchorLinks(section.callout.text)}
                     </div>
                   </div>
                 )}
@@ -622,7 +669,7 @@ export const ArticleDetailView: React.FC = () => {
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">Conclusion</h2>
               <div className="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
                 {article.conclusion.text.map((t, idx) => (
-                  <p key={idx}>{t}</p>
+                  <p key={idx}>{renderContentWithAnchorLinks(t)}</p>
                 ))}
               </div>
 
@@ -650,6 +697,102 @@ export const ArticleDetailView: React.FC = () => {
                   >
                     <span>Practice Hub</span>
                   </button>
+                </div>
+              </div>
+
+              {/* Internal Linking & Anchor Text Navigation Hub */}
+              <div className="bg-slate-50 border-2 border-indigo-100 rounded-3xl p-6 sm:p-7 space-y-4 mt-8">
+                <div className="flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-black text-sm">
+                    🔗
+                  </span>
+                  <div>
+                    <h3 className="text-base font-black text-slate-900">
+                      Internal Linking & Recommended Reading
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      Explore core topics and practice hubs with keyword-rich anchor text
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentView('home');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-400 hover:shadow-xs transition-all group flex items-start gap-3"
+                    title="Anchor text link to homepage: language learning website"
+                  >
+                    <span className="text-lg">🏠</span>
+                    <div>
+                      <span className="text-xs font-bold text-slate-400 block uppercase tracking-wider">Homepage</span>
+                      <span className="text-sm font-extrabold text-indigo-600 group-hover:text-indigo-800 underline decoration-indigo-300">
+                        language learning website
+                      </span>
+                      <span className="text-xs text-slate-500 block mt-0.5">Explore free language courses & daily streaks</span>
+                    </div>
+                  </a>
+
+                  <a
+                    href="/blog/benefits-of-learning-a-new-language"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('benefits-of-learning-a-new-language');
+                    }}
+                    className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-400 hover:shadow-xs transition-all group flex items-start gap-3"
+                    title="Anchor text link to Blog Post 1: benefits of learning a new language"
+                  >
+                    <span className="text-lg">🧠</span>
+                    <div>
+                      <span className="text-xs font-bold text-slate-400 block uppercase tracking-wider">Blog Post 1</span>
+                      <span className="text-sm font-extrabold text-indigo-600 group-hover:text-indigo-800 underline decoration-indigo-300">
+                        benefits of learning a new language
+                      </span>
+                      <span className="text-xs text-slate-500 block mt-0.5">Cognitive perks, memory, and bilingual advantages</span>
+                    </div>
+                  </a>
+
+                  <a
+                    href="/blog/how-to-learn-a-new-language-faster-proven-tips"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-learn-a-new-language-faster-proven-tips');
+                    }}
+                    className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-400 hover:shadow-xs transition-all group flex items-start gap-3"
+                    title="Anchor text link to Blog Post 2: how to learn a language faster"
+                  >
+                    <span className="text-lg">⚡</span>
+                    <div>
+                      <span className="text-xs font-bold text-slate-400 block uppercase tracking-wider">Blog Post 2</span>
+                      <span className="text-sm font-extrabold text-indigo-600 group-hover:text-indigo-800 underline decoration-indigo-300">
+                        how to learn a language faster
+                      </span>
+                      <span className="text-xs text-slate-500 block mt-0.5">Effective language learning techniques & tips</span>
+                    </div>
+                  </a>
+
+                  <a
+                    href="/blog/how-to-improve-language-skills-exercises"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-improve-language-skills-exercises');
+                    }}
+                    className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-400 hover:shadow-xs transition-all group flex items-start gap-3"
+                    title="Anchor text link to Blog Post 3: improve language skills"
+                  >
+                    <span className="text-lg">🎯</span>
+                    <div>
+                      <span className="text-xs font-bold text-slate-400 block uppercase tracking-wider">Blog Post 3</span>
+                      <span className="text-sm font-extrabold text-indigo-600 group-hover:text-indigo-800 underline decoration-indigo-300">
+                        improve language skills
+                      </span>
+                      <span className="text-xs text-slate-500 block mt-0.5">Targeted language practice exercises & speech drills</span>
+                    </div>
+                  </a>
                 </div>
               </div>
             </section>

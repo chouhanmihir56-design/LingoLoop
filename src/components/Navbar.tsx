@@ -56,6 +56,8 @@ export const Navbar: React.FC = () => {
         >
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform">
             <svg
+              role="img"
+              aria-label="LingoLoop language learning logo icon"
               className="w-6 h-6 transform group-hover:rotate-180 transition-transform duration-700"
               viewBox="0 0 24 24"
               fill="none"

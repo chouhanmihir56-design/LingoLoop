@@ -421,7 +421,17 @@ export const LandingPage: React.FC = () => {
                     {article.publishedDate}
                   </span>
                   <h3 className="text-base font-black text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
-                    {article.title}
+                    <a
+                      href={`/blog/${article.slug}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        openArticle(article.slug);
+                      }}
+                      className="hover:underline"
+                      title={article.title}
+                    >
+                      {article.title}
+                    </a>
                   </h3>
                   <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                     {article.summary}
@@ -434,10 +444,18 @@ export const LandingPage: React.FC = () => {
                   <span className="font-mono text-[10px] text-slate-400 truncate max-w-[150px]">
                     /blog/{article.slug.slice(0, 18)}...
                   </span>
-                  <span className="group-hover:translate-x-1 transition-transform flex items-center gap-1 font-bold">
-                    Read Full {article.targetLanguage === 'es' ? 'Spanish Guide' : article.category === 'App Reviews' ? 'App Review' : 'Tips Guide'}
+                  <a
+                    href={`/blog/${article.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle(article.slug);
+                    }}
+                    className="group-hover:translate-x-1 transition-transform flex items-center gap-1 font-bold hover:underline"
+                    title={`Read full guide: ${article.primaryKeyword}`}
+                  >
+                    Read: {article.primaryKeyword}
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -447,10 +465,19 @@ export const LandingPage: React.FC = () => {
 
       {/* Keyword Research Table */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-6">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            Keyword Research Table
-          </h2>
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Keyword Research Table
+            </h2>
+            <p className="text-sm text-slate-500 font-medium mt-1">
+              SEO target keywords with interactive anchor text hyperlinks and search intent mapping.
+            </p>
+          </div>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Anchor text links active</span>
+          </div>
         </div>
 
         <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
@@ -467,39 +494,341 @@ export const LandingPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-slate-200 text-sm text-slate-800">
               <tr className="hover:bg-slate-50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Home</td>
-                <td className="py-4 px-6 font-medium whitespace-nowrap">language learning</td>
-                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">learn a new language; language learning website</td>
+                <td className="py-4 px-6 font-semibold whitespace-nowrap">
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="text-indigo-600 hover:text-indigo-800 underline font-bold inline-flex items-center gap-1"
+                    title="Anchor text link to Home page"
+                  >
+                    Home
+                  </a>
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap">
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="text-slate-900 hover:text-indigo-600 underline font-semibold decoration-indigo-300"
+                    title="Anchor text: language learning"
+                  >
+                    language learning
+                  </a>
+                </td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">
+                  <a
+                    href="/languages"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentView('languages');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: learn a new language"
+                  >
+                    learn a new language
+                  </a>;{' '}
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: language learning website"
+                  >
+                    language learning website
+                  </a>
+                </td>
                 <td className="py-4 px-6 whitespace-nowrap">Know</td>
                 <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
                 <td className="py-4 px-6 text-slate-700">How can I learn a new language?</td>
               </tr>
               <tr className="hover:bg-slate-50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 1</td>
-                <td className="py-4 px-6 font-medium whitespace-nowrap">benefits of learning a new language</td>
-                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">advantages of learning languages; benefits of bilingualism</td>
+                <td className="py-4 px-6 font-semibold whitespace-nowrap">
+                  <a
+                    href="/blog/benefits-of-learning-a-new-language"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('benefits-of-learning-a-new-language');
+                    }}
+                    className="text-indigo-600 hover:text-indigo-800 underline font-bold inline-flex items-center gap-1"
+                    title="Anchor text link to Blog post 1"
+                  >
+                    Blog post 1
+                  </a>
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap">
+                  <a
+                    href="/blog/benefits-of-learning-a-new-language"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('benefits-of-learning-a-new-language');
+                    }}
+                    className="text-slate-900 hover:text-indigo-600 underline font-semibold decoration-indigo-300"
+                    title="Anchor text: benefits of learning a new language"
+                  >
+                    benefits of learning a new language
+                  </a>
+                </td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">
+                  <a
+                    href="/blog/benefits-of-learning-a-new-language"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('benefits-of-learning-a-new-language');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: advantages of learning languages"
+                  >
+                    advantages of learning languages
+                  </a>;{' '}
+                  <a
+                    href="/blog/benefits-of-learning-a-new-language"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('benefits-of-learning-a-new-language');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: benefits of bilingualism"
+                  >
+                    benefits of bilingualism
+                  </a>
+                </td>
                 <td className="py-4 px-6 whitespace-nowrap">Know</td>
                 <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
                 <td className="py-4 px-6 text-slate-700">What are the benefits of learning a new language?</td>
               </tr>
               <tr className="hover:bg-slate-50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 2</td>
-                <td className="py-4 px-6 font-semibold whitespace-nowrap">how to learn a language faster</td>
-                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">effective language learning techniques; language learning tips</td>
+                <td className="py-4 px-6 font-semibold whitespace-nowrap">
+                  <a
+                    href="/blog/how-to-learn-a-new-language-faster-proven-tips"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-learn-a-new-language-faster-proven-tips');
+                    }}
+                    className="text-indigo-600 hover:text-indigo-800 underline font-bold inline-flex items-center gap-1"
+                    title="Anchor text link to Blog post 2"
+                  >
+                    Blog post 2
+                  </a>
+                </td>
+                <td className="py-4 px-6 font-semibold whitespace-nowrap">
+                  <a
+                    href="/blog/how-to-learn-a-new-language-faster-proven-tips"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-learn-a-new-language-faster-proven-tips');
+                    }}
+                    className="text-slate-900 hover:text-indigo-600 underline font-semibold decoration-indigo-300"
+                    title="Anchor text: how to learn a language faster"
+                  >
+                    how to learn a language faster
+                  </a>
+                </td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">
+                  <a
+                    href="/blog/how-to-learn-a-new-language-faster-proven-tips"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-learn-a-new-language-faster-proven-tips');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: effective language learning techniques"
+                  >
+                    effective language learning techniques
+                  </a>;{' '}
+                  <a
+                    href="/blog/how-to-learn-a-new-language-faster-proven-tips"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-learn-a-new-language-faster-proven-tips');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: language learning tips"
+                  >
+                    language learning tips
+                  </a>
+                </td>
                 <td className="py-4 px-6 whitespace-nowrap">Know</td>
                 <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
                 <td className="py-4 px-6 text-slate-700">How can I learn a language faster?</td>
               </tr>
               <tr className="hover:bg-slate-50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-indigo-600 whitespace-nowrap">Blog post 3</td>
-                <td className="py-4 px-6 font-medium whitespace-nowrap">improve language skills</td>
-                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">improve speaking skills; language practice exercises</td>
+                <td className="py-4 px-6 font-semibold whitespace-nowrap">
+                  <a
+                    href="/blog/how-to-improve-language-skills-exercises"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-improve-language-skills-exercises');
+                    }}
+                    className="text-indigo-600 hover:text-indigo-800 underline font-bold inline-flex items-center gap-1"
+                    title="Anchor text link to Blog post 3"
+                  >
+                    Blog post 3
+                  </a>
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap">
+                  <a
+                    href="/blog/how-to-improve-language-skills-exercises"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-improve-language-skills-exercises');
+                    }}
+                    className="text-slate-900 hover:text-indigo-600 underline font-semibold decoration-indigo-300"
+                    title="Anchor text: improve language skills"
+                  >
+                    improve language skills
+                  </a>
+                </td>
+                <td className="py-4 px-6 text-slate-600 whitespace-nowrap">
+                  <a
+                    href="/blog/how-to-improve-language-skills-exercises"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-improve-language-skills-exercises');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: improve speaking skills"
+                  >
+                    improve speaking skills
+                  </a>;{' '}
+                  <a
+                    href="/blog/how-to-improve-language-skills-exercises"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openArticle('how-to-improve-language-skills-exercises');
+                    }}
+                    className="hover:text-indigo-600 underline decoration-slate-300"
+                    title="Anchor text: language practice exercises"
+                  >
+                    language practice exercises
+                  </a>
+                </td>
                 <td className="py-4 px-6 whitespace-nowrap">Know</td>
                 <td className="py-4 px-6 text-slate-600 whitespace-nowrap">Not verified</td>
                 <td className="py-4 px-6 text-slate-700">How can I improve my language skills?</td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        {/* Anchor Text & Alt Text SEO Implementation Directory */}
+        <div className="mt-8 bg-slate-50 border-2 border-indigo-100 rounded-3xl p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+            <div>
+              <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+                <span>📍</span>
+                <span>Anchor Text & Alt Text Implementation Directory</span>
+              </h3>
+              <p className="text-xs text-slate-500 font-medium">
+                Detailed location map of all descriptive anchor text hyperlinks and image alt text tags.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full self-start sm:self-auto">
+              SEO Best Practices Enforced
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Anchor Text Map */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
+              <h4 className="text-xs font-black uppercase tracking-wider text-indigo-600 flex items-center gap-1.5">
+                <span>🔗</span> Added Anchor Text Hyperlinks
+              </h4>
+              <ul className="space-y-2 text-xs text-slate-700 divide-y divide-slate-100">
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"Home"</span> & <span className="font-bold text-slate-900">"language learning"</span>
+                    <span className="block text-[11px] text-slate-400">Links to Homepage (/)</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Nav</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"learn a new language"</span> & <span className="font-bold text-slate-900">"language learning website"</span>
+                    <span className="block text-[11px] text-slate-400">Links to Language selection (/languages) and Home (/)</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Articles</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"Blog post 1"</span> & <span className="font-bold text-slate-900">"benefits of learning a new language"</span>
+                    <span className="block text-[11px] text-slate-400">Links to /blog/benefits-of-learning-a-new-language</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Cards</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"advantages of learning languages"</span> & <span className="font-bold text-slate-900">"benefits of bilingualism"</span>
+                    <span className="block text-[11px] text-slate-400">Links to /blog/benefits-of-learning-a-new-language</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Content</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"Blog post 2"</span> & <span className="font-bold text-slate-900">"how to learn a language faster"</span>
+                    <span className="block text-[11px] text-slate-400">Links to /blog/how-to-learn-a-new-language-faster-proven-tips</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Cards</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"effective language learning techniques"</span> & <span className="font-bold text-slate-900">"language learning tips"</span>
+                    <span className="block text-[11px] text-slate-400">Links to /blog/how-to-learn-a-new-language-faster-proven-tips</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Content</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"Blog post 3"</span> & <span className="font-bold text-slate-900">"improve language skills"</span>
+                    <span className="block text-[11px] text-slate-400">Links to /blog/how-to-improve-language-skills-exercises</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Cards</span>
+                </li>
+                <li className="pt-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-extrabold text-indigo-600">"improve speaking skills"</span> & <span className="font-bold text-slate-900">"language practice exercises"</span>
+                    <span className="block text-[11px] text-slate-400">Links to /blog/how-to-improve-language-skills-exercises</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded">Table & Content</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Alt Text Map */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
+              <h4 className="text-xs font-black uppercase tracking-wider text-emerald-600 flex items-center gap-1.5">
+                <span>🖼️</span> Added Image Alt Text Tags
+              </h4>
+              <ul className="space-y-2 text-xs text-slate-700 divide-y divide-slate-100">
+                <li className="pt-2">
+                  <span className="font-extrabold text-slate-900 block">Blog 1 Cover Image:</span>
+                  <span className="text-slate-600 italic block mt-0.5">"Diverse group of bilingual colleagues collaborating and smiling around a conference table with laptops and language notes"</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">File: /blog/benefits-of-learning-a-new-language</span>
+                </li>
+                <li className="pt-2">
+                  <span className="font-extrabold text-slate-900 block">Blog 2 Cover Image:</span>
+                  <span className="text-slate-600 italic block mt-0.5">"Focused student practicing accelerated language learning techniques with colorful flashcards and interactive tablet"</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">File: /blog/how-to-learn-a-new-language-faster-proven-tips</span>
+                </li>
+                <li className="pt-2">
+                  <span className="font-extrabold text-slate-900 block">Blog 3 Cover Image:</span>
+                  <span className="text-slate-600 italic block mt-0.5">"Enthusiastic language learner wearing headphones practicing speech drills and pronunciation aloud in a bright study space"</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">File: /blog/how-to-improve-language-skills-exercises</span>
+                </li>
+                <li className="pt-2">
+                  <span className="font-extrabold text-slate-900 block">Mascot & Flag Assets:</span>
+                  <span className="text-slate-600 italic block mt-0.5">"Loopi the LingoLoop mascot owl - friendly guide for language learning" + Spanish, French, Italian, Japanese flag aria labels</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">Components: Mascot.tsx, Navbar.tsx, LandingPage.tsx</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 

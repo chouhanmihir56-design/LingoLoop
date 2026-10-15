@@ -47,6 +47,8 @@ export const Mascot: React.FC<MascotProps> = ({
         title={interactive ? 'Click to say hi to Loopi!' : undefined}
       >
         <svg
+          role="img"
+          aria-label="Loopi the LingoLoop mascot owl - friendly guide for language learning"
           viewBox="0 0 200 200"
           className={`w-full h-full filter drop-shadow-md transition-all ${
             isWaving ? 'animate-bounce' : 'animate-float'
