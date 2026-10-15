@@ -40,13 +40,6 @@ export const LandingPage: React.FC = () => {
     if (canonicalLink) {
       canonicalLink.setAttribute('href', 'https://lingoloop.app/');
     }
-    let googleVerification = document.querySelector('meta[name="google-site-verification"]');
-    if (!googleVerification) {
-      googleVerification = document.createElement('meta');
-      googleVerification.setAttribute('name', 'google-site-verification');
-      document.head.prepend(googleVerification);
-    }
-    googleVerification.setAttribute('content', 'W1cAPGu2H5J0OkOWy2CyxmpnV8Muir_W3amwkB1CXNk');
   }, []);
 
   const handleStartLearning = () => {
