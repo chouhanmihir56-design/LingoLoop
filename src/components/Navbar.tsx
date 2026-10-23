@@ -14,7 +14,6 @@ import {
   Dumbbell,
   User,
   Home,
-  PlusCircle,
   FileText,
 } from 'lucide-react';
 import { playSound } from '../utils/audio';
@@ -47,14 +46,14 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
+    <header className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Brand Logo */}
         <div
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-2.5 cursor-pointer group select-none"
         >
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-md shadow-purple-900/50 group-hover:scale-105 transition-transform">
             <svg
               role="img"
               aria-label="LingoLoop language learning logo icon"
@@ -72,11 +71,11 @@ export const Navbar: React.FC = () => {
             </svg>
           </div>
           <div>
-            <span className="text-xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="text-xl font-black tracking-tight bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent">
               LingoLoop
             </span>
-            <span className="hidden sm:inline-block ml-1.5 text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded-md">
-              Beta
+            <span className="hidden sm:inline-block ml-1.5 text-[10px] font-bold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30 px-1.5 py-0.5 rounded-md">
+              Infinite
             </span>
           </div>
         </div>
@@ -87,8 +86,8 @@ export const Navbar: React.FC = () => {
             onClick={() => handleNavClick('home')}
             className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
               currentView === 'home'
-                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Home className="w-4 h-4" />
@@ -99,32 +98,32 @@ export const Navbar: React.FC = () => {
             onClick={() => handleNavClick('learn')}
             className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
               currentView === 'learn'
-                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
             <BookOpen className="w-4 h-4" />
-            <span>Learn</span>
+            <span>Quests</span>
           </button>
 
           <button
             onClick={() => handleNavClick('practice')}
             className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
               currentView === 'practice'
-                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Dumbbell className="w-4 h-4" />
-            <span>Practice</span>
+            <span>Practice Gym</span>
           </button>
 
           <button
             onClick={() => handleNavClick('leaderboard')}
             className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
               currentView === 'leaderboard'
-                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Trophy className="w-4 h-4" />
@@ -135,8 +134,8 @@ export const Navbar: React.FC = () => {
             onClick={() => handleNavClick('blog')}
             className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
               currentView === 'blog' || currentView === 'article'
-                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
             <FileText className="w-4 h-4" />
@@ -147,8 +146,8 @@ export const Navbar: React.FC = () => {
             onClick={() => handleNavClick('profile')}
             className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
               currentView === 'profile'
-                ? 'bg-indigo-50 text-indigo-700 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
             <User className="w-4 h-4" />
@@ -162,7 +161,7 @@ export const Navbar: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white shadow-2xs text-sm font-bold text-slate-800 hover:bg-slate-50 transition-all"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-700 hover:border-slate-600 bg-slate-800 text-sm font-bold text-slate-200 hover:bg-slate-750 transition-all cursor-pointer"
               title="Change language"
             >
               <span className="text-lg leading-none">{currentLangInfo.flag}</span>
@@ -174,14 +173,15 @@ export const Navbar: React.FC = () => {
 
             {langDropdownOpen && (
               <div
-                className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50 animate-in fade-in zoom-in-95 duration-150"
+                className="absolute right-0 mt-2 w-60 bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 py-2 z-50 animate-in fade-in zoom-in-95 duration-150"
                 onMouseLeave={() => setLangDropdownOpen(false)}
               >
-                <div className="px-3 py-1.5 border-b border-slate-100">
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Your Languages
+                <div className="px-3.5 py-1.5 border-b border-slate-800">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Switch Learning Target
                   </p>
                 </div>
+
                 <div className="max-h-64 overflow-y-auto py-1">
                   {LANGUAGES.map((lang) => (
                     <button
@@ -190,31 +190,35 @@ export const Navbar: React.FC = () => {
                         selectLanguage(lang.id);
                         setLangDropdownOpen(false);
                       }}
-                      className={`w-full flex items-center justify-between px-3 py-2 text-left text-sm font-medium hover:bg-slate-50 transition-colors ${
+                      className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-sm font-medium hover:bg-slate-800 transition-colors cursor-pointer ${
                         lang.id === user.currentLanguage
-                          ? 'bg-indigo-50 text-indigo-700 font-bold'
-                          : 'text-slate-700'
+                          ? 'bg-purple-600/20 text-purple-300 font-bold'
+                          : 'text-slate-300'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <span className="text-xl">{lang.flag}</span>
-                        <span>{lang.name}</span>
+                        <div>
+                          <div>{lang.name}</div>
+                          <div className="text-[10px] text-slate-400">{lang.nativeName}</div>
+                        </div>
                       </div>
                       {lang.id === user.currentLanguage && (
-                        <span className="w-2 h-2 rounded-full bg-indigo-600" />
+                        <span className="w-2 h-2 rounded-full bg-purple-400" />
                       )}
                     </button>
                   ))}
                 </div>
-                <div className="p-2 border-t border-slate-100">
+
+                <div className="p-2 border-t border-slate-800">
                   <button
                     onClick={() => {
                       setLangDropdownOpen(false);
                       setCurrentView('languages');
                     }}
-                    className="w-full text-center text-xs font-bold text-indigo-600 hover:text-indigo-800 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors"
+                    className="w-full text-center text-xs font-bold text-purple-400 hover:text-purple-300 py-1.5 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
                   >
-                    + Explore all languages
+                    + Explore All 6 Curricula
                   </button>
                 </div>
               </div>
@@ -223,19 +227,19 @@ export const Navbar: React.FC = () => {
 
           {/* Streak Counter */}
           <div
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-50 border border-orange-200/60 text-orange-600 font-bold text-sm select-none"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-400 font-bold text-sm select-none tabular-nums"
             title={`${user.streak}-Day Streak! Complete a lesson daily to keep it burning.`}
           >
-            <Flame className="w-4 h-4 fill-orange-500 text-orange-500 animate-pulse" />
+            <Flame className="w-4 h-4 fill-orange-400 text-orange-400 animate-pulse" />
             <span>{user.streak}</span>
           </div>
 
           {/* Gems */}
           <div
-            className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-sky-50 border border-sky-200/60 text-sky-600 font-bold text-sm select-none"
-            title={`${user.gems} Gems. Earn gems by finishing lessons & chests!`}
+            className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-sm select-none tabular-nums"
+            title={`${user.gems} Gems. Earn gems by finishing quests & chests!`}
           >
-            <Gem className="w-4 h-4 fill-sky-400 text-sky-500" />
+            <span>💎</span>
             <span>{user.gems}</span>
           </div>
 
@@ -243,7 +247,7 @@ export const Navbar: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setHeartsDropdownOpen(!heartsDropdownOpen)}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-rose-50 border border-rose-200/60 text-rose-600 font-bold text-sm hover:bg-rose-100/70 transition-all select-none"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 font-bold text-sm hover:bg-rose-500/20 transition-all select-none cursor-pointer tabular-nums"
               title={`${user.hearts}/${user.maxHearts} Hearts`}
             >
               <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
@@ -252,7 +256,7 @@ export const Navbar: React.FC = () => {
 
             {heartsDropdownOpen && (
               <div
-                className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-100 p-4 z-50 text-center"
+                className="absolute right-0 mt-2 w-64 bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 p-4 z-50 text-center animate-in fade-in zoom-in-95 duration-150"
                 onMouseLeave={() => setHeartsDropdownOpen(false)}
               >
                 <div className="flex justify-center mb-2">
@@ -263,28 +267,30 @@ export const Navbar: React.FC = () => {
                         className={`w-6 h-6 ${
                           idx < user.hearts
                             ? 'fill-rose-500 text-rose-500'
-                            : 'text-slate-300 fill-slate-100'
+                            : 'text-slate-700 fill-slate-800'
                         }`}
                       />
                     ))}
                   </div>
                 </div>
-                <h4 className="font-bold text-slate-800 text-sm">
+
+                <h4 className="font-bold text-white text-sm">
                   {user.hearts === user.maxHearts ? 'Hearts are Full!' : `${user.hearts} Hearts Left`}
                 </h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  Mistakes in lessons cost 1 heart. Practice in the Practice Hub to earn hearts back!
+
+                <p className="text-xs text-slate-400 mt-1">
+                  Mistakes in quests cost 1 heart. Practice in the Endless Gym or restore anytime for free!
                 </p>
+
                 {user.hearts < user.maxHearts && (
                   <button
                     onClick={() => {
                       refillHearts();
                       setHeartsDropdownOpen(false);
                     }}
-                    className="mt-3 w-full py-2 px-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white rounded-xl text-xs font-bold shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5"
+                    className="w-full mt-3 py-2 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Refill Hearts
+                    Restore Full Hearts (Free) ❤️
                   </button>
                 )}
               </div>
@@ -294,15 +300,10 @@ export const Navbar: React.FC = () => {
           {/* Sound Toggle */}
           <button
             onClick={toggleSound}
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-            title={user.soundEnabled ? 'Mute sound' : 'Enable sound'}
-            aria-label="Toggle sound"
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition-all cursor-pointer"
+            title={user.soundEnabled ? 'Mute audio' : 'Enable audio'}
           >
-            {user.soundEnabled ? (
-              <Volume2 className="w-4 h-4 text-indigo-600" />
-            ) : (
-              <VolumeX className="w-4 h-4 text-slate-400" />
-            )}
+            {user.soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
           </button>
         </div>
       </div>

@@ -31,6 +31,8 @@ export interface BaseQuestion {
   targetPhrase?: string;
   phraseAudioText?: string;
   explanation?: string;
+  stage?: ProficiencyStage;
+  topic?: PracticeTopic;
 }
 
 export interface MultipleChoiceQuestion extends BaseQuestion {
@@ -97,7 +99,10 @@ export interface LessonNode {
   icon: string;
   xpReward: number;
   estimatedMinutes: number;
-  type: 'lesson' | 'quiz' | 'chest';
+  type: 'lesson' | 'quiz' | 'chest' | 'boss';
+  stage?: ProficiencyStage;
+  topic?: PracticeTopic;
+  biome?: string;
   questions: LessonQuestion[];
 }
 
@@ -108,7 +113,15 @@ export interface Unit {
   title: string;
   description: string;
   themeColor: string;
+  stage?: ProficiencyStage;
+  biome?: string;
   lessons: LessonNode[];
+}
+
+export interface LanguageProgressRecord {
+  completedLessonIds: string[];
+  currentLevel: number;
+  xp: number;
 }
 
 export interface Achievement {
@@ -131,6 +144,30 @@ export interface UserStats {
   weeklyActivity: { day: string; xp: number; targetReached: boolean }[];
 }
 
+export type ProficiencyStage = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+
+export type PracticeTopic =
+  | 'all'
+  | 'greetings'
+  | 'food'
+  | 'travel'
+  | 'shopping'
+  | 'daily'
+  | 'work'
+  | 'social'
+  | 'grammar'
+  | 'slang';
+
+export interface UserMistake {
+  id: string;
+  language: LanguageCode;
+  question: LessonQuestion;
+  userAnswer?: string;
+  timestamp: number;
+  reviewCount: number;
+  resolved: boolean;
+}
+
 export interface UserProfile {
   name: string;
   username: string;
@@ -151,6 +188,10 @@ export interface UserProfile {
   soundEnabled: boolean;
   ttsSpeed: number;
   stats: UserStats;
+  languageProgress?: Partial<Record<LanguageCode, LanguageProgressRecord>>;
+  mistakesHistory?: UserMistake[];
+  topicMastery?: Record<string, { attempts: number; correct: number }>;
+  endlessRoundsCompleted?: number;
 }
 
 export interface LeaderboardUser {
